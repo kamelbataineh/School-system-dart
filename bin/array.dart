@@ -1,6 +1,7 @@
 import 'Student.dart';
 import 'Teacher.dart';
 import 'class_class.dart';
+import 'dart:io';
 
 class School {
   List<Teacher> teacherNames = [
@@ -14,8 +15,7 @@ class School {
           email: "john.doe@example.com",
           phoneNo: 1234567890,
           address: "123 Main St",
-          classId: 101,
-          marks: {"mark_science ": 80, "ark_arabc": 76, " mark_math": 90}),
+          classId: 101),
       teacherId: 1,
       username: 'john_doe',
       password: 'password1',
@@ -30,16 +30,15 @@ class School {
     ),
     Teacher(
       student: Student(
-          studentId: 1,
-          username: "Kamel",
-          password: "password123",
-          enrollmentNo: 12345,
-          gender: "Male",
-          email: "john.doe@example.com",
-          phoneNo: 1234567890,
-          address: "123 Main St",
-          classId: 101,
-          marks: {"mark_science ": 80, "ark_arabc": 76, " mark_math": 90}),
+          studentId: 2,
+          username: "Sara",
+          password: "password456",
+          enrollmentNo: 67890,
+          gender: "Female",
+          email: "sara@example.com",
+          phoneNo: 9876543210,
+          address: "456 Avenue, City",
+          classId: 2),
       teacherId: 2,
       username: 'jane_doe',
       password: 'password2',
@@ -79,8 +78,7 @@ class School {
         email: 'john.doe@example.com',
         phoneNo: 1234567890,
         address: '123 Main St',
-        classId: 101,
-        marks: {"mark_science ": 80, "ark_arabc": 76, " mark_math": 90}),
+        classId: 101),
     Student(
         studentId: 2,
         username: 'Sara',
@@ -90,8 +88,7 @@ class School {
         email: 'sara@example.com',
         phoneNo: 9876543210,
         address: '456 Avenue, City',
-        classId: 2,
-        marks: {"mark_science ": 80, "ark_arabc": 76, " mark_math": 90}),
+        classId: 2),
   ];
 
   List<Class> classes = [
@@ -135,7 +132,7 @@ class School {
     required int phoneNo,
     required String address,
     required int classId,
-    required Map<String, int> marks,
+    // required Map<String, int> marks,
   }) {
     studentNames.add(Student(
       studentId: studentId,
@@ -147,9 +144,8 @@ class School {
       phoneNo: phoneNo,
       address: address,
       classId: classId,
-      marks: marks,
+      //   marks: marks,
     ));
-    print("Student $username added.");
   }
 
   ///
@@ -188,18 +184,37 @@ class School {
     required String email,
     required String classTeacher,
   }) {
+    // Check if passwords match
+    if (password != confirmPassword) {
+      print("Passwords do not match. Please try again.");
+      return;
+    }
+
+    // Check if teacherId or username already exists
+    bool teacherIdExists =
+        teacherNames.any((teacher) => teacher.teacherId == teacherId);
+    bool usernameExists =
+        teacherNames.any((teacher) => teacher.username == username);
+
+    if (teacherIdExists || usernameExists) {
+      print("Teacher ID or Username already exists. Please try again.");
+      return;
+    }
+
+    // Add the new teacher
     teacherNames.add(Teacher(
       student: Student(
-          studentId: 1,
-          username: "Kamel",
-          password: "password123",
-          enrollmentNo: 12345,
-          gender: "Male",
-          email: "john.doe@example.com",
-          phoneNo: 1234567890,
-          address: "123 Main St",
-          classId: 101,
-          marks: {"mark_science ": 80, "ark_arabc": 76, " mark_math": 90}),
+        studentId: teacherId, // Assuming this is just a placeholder
+        username: username,
+        password: password,
+        enrollmentNo: 0, // Placeholder
+        gender: gender,
+        email: email,
+        phoneNo: phoneNo,
+        address: address,
+        classId: 0, // Placeholder
+        marks: {}, // Placeholder
+      ),
       teacherId: teacherId,
       username: username,
       password: password,
@@ -212,7 +227,6 @@ class School {
       email: email,
       classTeacher: classTeacher,
     ));
-    print("Teacher $username added.");
   }
 
   ///
@@ -248,7 +262,9 @@ class School {
       className: className,
       teacherName: teacherName,
     ));
+    print("-------------------------------------");
     print("Class $className added.");
+    print("-------------------------------------");
   }
 
   ///
@@ -276,29 +292,75 @@ class School {
   ///
   ///
   void printStudents() {
-    print("Students:");
+    print("\nStudents:\n");
     print("| No. | Username  | Student ID |");
     print("|-----|-----------|------------|");
-    for (var i = 0; i < studentNames.length; i++) {
-      print(
-          "| ${i + 1}. ${studentNames[i].username} | ${studentNames[i].studentId} |");
+
+    for (int i = 0; i < studentNames.length; i++) {
+      String number = (i + 1).toString().padRight(3);
+      String username = studentNames[i].username.padRight(9);
+      String studentId = studentNames[i].studentId.toString().padRight(10);
+
+      print("| $number | $username | $studentId |");
+    }}////////////
+    //
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+   void addMark() {
+    // عرض قائمة الطلاب
+    print("Select a student by ID:");
+    for (var student in studentNames) {
+      print("ID: ${student.studentId}, Name: ${student.username}");
+    }
+
+    // الحصول على ID الطالب
+    print("Enter student ID:");
+    int studentId = int.parse(stdin.readLineSync()!);
+
+    // البحث عن الطالب
+    Student? selectedStudent;
+    for (var student in studentNames) {
+      if (student.studentId == studentId) {
+        selectedStudent = student;
+        break;
+      }
+    }
+
+    if (selectedStudent != null) {
+      // الحصول على اسم المادة والعلامة
+      print("Enter subject:");
+      String subject = stdin.readLineSync()!;
+      print("Enter mark:");
+      int mark = int.parse(stdin.readLineSync()!);
+
+      // إضافة العلامة للطالب
+      selectedStudent.marks[subject] = mark;
+      print("Mark added successfully.");
+    } else {
+      print("Student not found.");
     }
   }
 
-  ///
 //////////////////////////
   ///
   void printStudentDetails() {
     for (var student in studentNames) {
-      print('Student ID: ${student.studentId}');
-      print('Username: ${student.username}');
-      print('Enrollment No: ${student.enrollmentNo}');
-      print('Gender: ${student.gender}');
-      print('Email: ${student.email}');
-      print('Phone No: ${student.phoneNo}');
-      print('Address: ${student.address}');
-      print('Class ID: ${student.classId}');
-      print('-------------------');
+      print('------------------------------------');
+      print('Student ID           : ${student.studentId}');
+      print('Username             : ${student.username}');
+      print('Enrollment No        : ${student.enrollmentNo}');
+      print('Gender               : ${student.gender}');
+      print('Email                : ${student.email}');
+      print('Phone No             : ${student.phoneNo}');
+      print('Address              : ${student.address}');
+      print('Class ID             : ${student.classId}');
+      print('------------------------------------');
     }
   }
 
@@ -312,14 +374,16 @@ class School {
       return;
     }
     var student = studentNames[index - 1];
-    print('Student ID: ${student.studentId}');
-    print('Username: ${student.username}');
-    print('Enrollment No: ${student.enrollmentNo}');
-    print('Gender: ${student.gender}');
-    print('Email: ${student.email}');
-    print('Phone No: ${student.phoneNo}');
-    print('Address: ${student.address}');
-    print('Class ID: ${student.classId}');
+    print('------------------------------------');
+    print('Student ID        : ${student.studentId}');
+    print('Username          : ${student.username}');
+    print('Enrollment No     : ${student.enrollmentNo}');
+    print('Gender            : ${student.gender}');
+    print('Email             : ${student.email}');
+    print('Phone No          : ${student.phoneNo}');
+    print('Address           : ${student.address}');
+    print('Class ID          : ${student.classId}');
+    print('------------------------------------');
   }
 
   ///
@@ -334,12 +398,16 @@ class School {
   ///
   ///
   void printTeachers() {
-    print("Teachers:");
+    print("\nTeachers:\n");
     print("| No. | Username  | Teachers ID |");
     print("|-----|-----------|------------|");
-    for (var i = 0; i < teacherNames.length; i++) {
-      print(
-          "| ${i + 1}. ${teacherNames[i].name} | ${teacherNames[i].teacherId} |");
+
+    for (int i = 0; i < teacherNames.length; i++) {
+      String number = (i + 1).toString().padRight(3);
+      String username = teacherNames[i].username.padRight(9);
+      String teacherId = teacherNames[i].teacherId.toString().padRight(10);
+
+      print("| $number | $username | $teacherId |");
     }
   }
 
@@ -349,18 +417,19 @@ class School {
 
   void printTeachersDetails() {
     for (var teacher in teacherNames) {
-      print('Teacher ID: ${teacher.teacherId}');
-      print('Username: ${teacher.username}');
-      print('Password: ${teacher.password}');
-      print('Confirm Password: ${teacher.confirmPassword}');
-      print('Name: ${teacher.name}');
-      print('Age: ${teacher.age}');
-      print('Gender: ${teacher.gender}');
-      print('Email: ${teacher.email}');
-      print('Phone No: ${teacher.phoneNo}');
-      print('Address: ${teacher.address}');
-      print('Class Teacher: ${teacher.classTeacher}');
-      print('-------------------');
+      print('------------------------------------');
+      print('Teacher ID       : ${teacher.teacherId}');
+      print('Username         : ${teacher.username}');
+      print('Password         : ${teacher.password}');
+      print('Confirm Password : ${teacher.confirmPassword}');
+      print('Name             : ${teacher.name}');
+      print('Age              : ${teacher.age}');
+      print('Gender           : ${teacher.gender}');
+      print('Email            : ${teacher.email}');
+      print('Phone No         : ${teacher.phoneNo}');
+      print('Address          : ${teacher.address}');
+      print('Class Teacher    : ${teacher.classTeacher}');
+      print('------------------------------------');
     }
   }
 
@@ -369,18 +438,26 @@ class School {
   ///
 
   void printTeacherByIndex(int index) {
+    if (index < 1 || index > teacherNames.length) {
+      print(
+          "Invalid index. Please enter a number between 1 and ${teacherNames.length}.");
+      return;
+    }
+
     var teacher = teacherNames[index - 1];
-    print('Teacher ID: ${teacher.teacherId}');
-    print('Username: ${teacher.username}');
-    print('Password: ${teacher.password}');
+    print('------------------------------------');
+    print('Teacher ID      : ${teacher.teacherId}');
+    print('Username        : ${teacher.username}');
+    print('Password        : ${teacher.password}');
     print('Confirm Password: ${teacher.confirmPassword}');
-    print('Name: ${teacher.name}');
-    print('Age: ${teacher.age}');
-    print('Gender: ${teacher.gender}');
-    print('Email: ${teacher.email}');
-    print('Phone No: ${teacher.phoneNo}');
-    print('Address: ${teacher.address}');
-    print('Class Teacher: ${teacher.classTeacher}');
+    print('Name            : ${teacher.name}');
+    print('Age             : ${teacher.age}');
+    print('Gender          : ${teacher.gender}');
+    print('Email           : ${teacher.email}');
+    print('Phone No        : ${teacher.phoneNo}');
+    print('Address         : ${teacher.address}');
+    print('Class Teacher   : ${teacher.classTeacher}');
+    print('------------------------------------');
   }
 
   ///
@@ -397,22 +474,29 @@ class School {
   ///
   ///
   void printClasss() {
-    print("Classs:");
-    print("| No. | Username  | Student ID |  Teacher   |");
-    print("|-----|-----------|------------|------------|");
+    print("\nClasses:\n");
+    print("| No. | Class Name | Class ID | Teacher   |");
+    print("|-----|------------|----------|-----------|");
+
     for (var i = 0; i < classes.length; i++) {
-      print(
-          "| ${i + 1}. ${classes[i].className} | ${classes[i].classId} | ${classes[i].teacherName} | ");
+      String className = classes[i].className.padRight(10);
+      String classId = classes[i].classId.toString().padRight(8);
+      String teacherName = classes[i].teacherName.padRight(10);
+
+      print("| ${i + 1}   | $className | $classId |$teacherName |");
     }
   }
 }
 
-// void main() {
-//   School school = School();
-//   school.printStudents();
-//   school.printStudentDetails();
-//   school.printTeachers();
-//   school.printTeachersDetails();
-//   int index = int.parse(stdin.readLineSync()!);
-//   school.printStudentByIndex(index);
-// }
+void main() {
+  // إنشاء كائن من فئة School
+  School school = School();
+
+  // استخدام طريقة addMark لإضافة علامات
+  school.addMark();
+
+  // طباعة العلامات للتحقق
+  for (var student in school.studentNames) {
+    print("Student ID: ${student.studentId}, Marks: ${student.marks}");
+  }
+}

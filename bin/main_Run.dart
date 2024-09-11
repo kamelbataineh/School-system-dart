@@ -2,16 +2,18 @@ import 'dart:io';
 import 'main.dart';
 
 void main(List<String> args) {
-  while (true) {
-    print("""\n-------------------------------------
-1.Admin.
-2.Teacher.
-3.Student.
-4.Exit.
--------------------------------------
-""");
-    stdout.write("Enter number :");
+  while (true) {   
+    print("\n-------------------------------------");
+    print("         |    User List    |         ");
+    print("""-------------------------------------
+1.Admin   .
+2.Teacher .
+3.Student .
+4.Exit    .
+-------------------------------------""");
+    stdout.write("Select the user type by entering the number : ");
     String input = stdin.readLineSync()!;
+    print("-------------------------------------");
     switch (input) {
       case "1":
         principal();

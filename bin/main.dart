@@ -26,6 +26,7 @@ import 'array.dart';
 ///
 ///
 void teacher() {
+   School school = School();
   Teacher teacher = Teacher(
     student: Student(
       studentId: 1,
@@ -61,10 +62,14 @@ void teacher() {
     return;
   }
   while (true) {
-    print("1. Sign Up");
-    print("2. Log In");
-    print("3. Log Out");
-    print("4. Exit");
+    print("""
+********** Main Menu **********
+1. Sign Up  -  Create a new user account  . 
+2. Log In   -  Access your account        .
+3. Log Out  -  Exit your account session  .
+4. Exit     -  Close the application      .
+*******************************
+""");
 
     stdout.write("Choose an option (1-4): ");
     String choice = stdin.readLineSync()!;
@@ -76,34 +81,42 @@ void teacher() {
         break;
 
       case '2':
-        {
-          if (teacher.login()) {
-            print("You are now logged in.");
+        if (teacher.login()) {
+    print("You are now logged in.");
 
-            while (true) {
-              print("""
-1.EnterMarks
-2.Get Marks Detail
-3.Exit...
+    while (true) {
+      print("""
+1. Enter Marks
+2. Get Marks Detail
+3. Exit
 """);
-              stdout.write("Choose an option (1-3): ");
-              String choice1 = stdin.readLineSync()!;
-              switch (choice1) {
-                case '1':
-                  teacher.enterMarks();
-                  break;
-                case '2':
-                  teacher.GetMarksDetail();
-                  break;
-                case '3':
-                  print("exit");
-                  return;
-                default:
-                  print("return number.");
-              }
-            }
-          }
-        }
+      stdout.write("Choose an option (1-3): ");
+            String choice = stdin.readLineSync()!;
+
+            switch (choice) {
+              case '1':
+              teacher.addMark();
+              
+                break;
+
+
+        case '2':
+          teacher.getMarksDetail(); 
+          break;
+
+        case '3':
+          print("Exiting...");
+          return;
+
+        default:
+          print("Invalid choice. Please enter a number between 1 and 3.");
+      }
+    }
+  } else {
+    print("Login failed. Please try again.");
+  }
+
+        
       case '3':
         teacher.logout();
         return;
@@ -221,21 +234,23 @@ void principal() {
 
   while (true) {
     print("""
-  1. Log Out.
-  2. Add New Teacher.
-  3. Add New Student.
-  4.view student.
-  5.view teacher.
-  6.view class.
-  7.Student By Index.
-  8.Teacher By Index.
-  9.modify Teacher.
-  10.modify student.
-  11.modify Class.
-  12.add new Class.
-  13.Prepare Report Cards.
-  14.prepare_Report_Cards_index
-  15.Exit......
+  1  -  Log Out                     .
+  2  -  Add New Teacher             .
+  3  -  Add New Student             .
+  4  -  view student                .
+  5  -  view teacher                .
+  6  -  view class                  .
+  7  -  Student By Index            .
+  8  -  Teacher By Index            .
+  9  -  modify Teacher              .
+  10 -  modify student              .
+  11 -  modify Class                . 
+  12 -  add new Class               .
+  13 -  Prepare Report Cards        .
+  14 -  prepare_Report_Cards_index  .
+  15 -  Exit.....                   .
+                                    .
+..................................... 
 """);
 
     stdout.write("Choose an option (1-15): ");
@@ -244,7 +259,6 @@ void principal() {
     switch (choice) {
       case '1':
         principal.logout();
-        print("-------------------------------------");
         return;
       case '2':
         principal.viewteacher();
@@ -305,25 +319,30 @@ void principal() {
         break;
       case '9':
         principal.viewteacher();
-        stdout.write("remove for teacher id?");
+        print('\n------------------------------------');
+        stdout.write("Teacher id?");
         int input = int.parse(stdin.readLineSync()!);
         principal.modifyTeacher(input);
         break;
       case '10':
         principal.viewstudent();
-        stdout.write("remove for student id?");
+        print('\n------------------------------------');
+        stdout.write("Student id?");
         int input = int.parse(stdin.readLineSync()!);
         principal.modifyStudent(input);
         break;
       case '11':
         principal.viewclasss();
-        stdout.write("remove for class id?");
+        print('\n------------------------------------');
+        stdout.write("Class id?");
         int input = int.parse(stdin.readLineSync()!);
         principal.modifyClass(input);
         break;
       case '12':
         principal.viewclasss();
+        print("\n-------------------------------------");
         principal.addNewClass();
+        print("\n\n-------------------------------------");
         break;
       case '13':
         principal.prepareReportCards();
@@ -372,38 +391,38 @@ void principal() {
 ///
 ///
 
-// void main(List<String> args) {
-//   while (true) {
-//     print("""\n
-// 1.Admin.
-// 2.Teacher.
-// 3.Student.
-// 4.Exit.
-// """);
-//     stdout.write("Enter number :");
-//     String input = stdin.readLineSync()!;
-//     switch (input) {
-//       case "1":
-//         principal();
-//         print("-------------------------------------");
-//         break;
-//       case "2":
-//         teacher();
-//         print("-------------------------------------");
-//         break;
-//       case "3":
-//         student();
-//         print("-------------------------------------");
+void main(List<String> args) {
+  while (true) {
+    print("""\n
+1.Admin.
+2.Teacher.
+3.Student.
+4.Exit.
+""");
+    stdout.write("Enter number :");
+    String input = stdin.readLineSync()!;
+    switch (input) {
+      case "1":
+        principal();
+        print("-------------------------------------");
+        break;
+      case "2":
+        teacher();
+        print("-------------------------------------");
+        break;
+      case "3":
+        student();
+        print("-------------------------------------");
 
-//         break;
-//       case "4":
-//         print("Exit........");
-//         print("-------------------------------------");
+        break;
+      case "4":
+        print("Exit........");
+        print("-------------------------------------");
 
-//         return;
-//       default:
-//         stdout.write("Choose an option (1-4): ");
-//         break;
-//     }
-//   }
-// }
+        return;
+      default:
+        stdout.write("Choose an option (1-4): ");
+        break;
+    }
+  }
+}
