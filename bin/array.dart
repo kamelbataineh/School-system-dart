@@ -6,7 +6,8 @@ import 'dart:io';
 class School {
   List<Teacher> teacherNames = [
     Teacher(
-      student: Student(
+      student: [
+        Student(
           studentId: 1,
           username: "Kamel",
           password: "password123",
@@ -15,7 +16,9 @@ class School {
           email: "john.doe@example.com",
           phoneNo: 1234567890,
           address: "123 Main St",
-          classId: 101),
+          classId: 101,
+        ),
+      ],
       teacherId: 1,
       username: 'john_doe',
       password: 'password1',
@@ -29,7 +32,8 @@ class School {
       classTeacher: 'Class A',
     ),
     Teacher(
-      student: Student(
+      student: [
+        Student(
           studentId: 2,
           username: "Sara",
           password: "password456",
@@ -38,7 +42,9 @@ class School {
           email: "sara@example.com",
           phoneNo: 9876543210,
           address: "456 Avenue, City",
-          classId: 2),
+          classId: 2,
+        ),
+      ],
       teacherId: 2,
       username: 'jane_doe',
       password: 'password2',
@@ -53,15 +59,6 @@ class School {
     ),
   ];
 
-  ///
-  ///
-  ///
-  ///
-  ///
-  ///
-  ///
-  ////////////////////
-  ///
   ///
   ///
   ///
@@ -91,6 +88,11 @@ class School {
         classId: 2),
   ];
 
+  ///
+  ///
+  ///
+  ///
+  ///
   List<Class> classes = [
     Class(
       classId: 1,
@@ -99,11 +101,6 @@ class School {
     )
   ];
 
-  ///
-  ///
-  ///
-  ///
-  ///
 ////////////////////
   ///
   ///
@@ -116,12 +113,6 @@ class School {
   ///
   ///
 ////////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
-  ///
   void addStudent({
     required int studentId,
     required String username,
@@ -132,7 +123,6 @@ class School {
     required int phoneNo,
     required String address,
     required int classId,
-    // required Map<String, int> marks,
   }) {
     studentNames.add(Student(
       studentId: studentId,
@@ -144,15 +134,9 @@ class School {
       phoneNo: phoneNo,
       address: address,
       classId: classId,
-      //   marks: marks,
     ));
   }
 
-  ///
-  ///
-  ///
-  ///
-  ///
 ////////////////////
   ///
   ///
@@ -165,12 +149,6 @@ class School {
   ///
   ///
 ////////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
-  ///
   void addTeacher({
     required int teacherId,
     required String username,
@@ -184,13 +162,11 @@ class School {
     required String email,
     required String classTeacher,
   }) {
-    // Check if passwords match
     if (password != confirmPassword) {
       print("Passwords do not match. Please try again.");
       return;
     }
 
-    // Check if teacherId or username already exists
     bool teacherIdExists =
         teacherNames.any((teacher) => teacher.teacherId == teacherId);
     bool usernameExists =
@@ -200,40 +176,8 @@ class School {
       print("Teacher ID or Username already exists. Please try again.");
       return;
     }
-
-    // Add the new teacher
-    teacherNames.add(Teacher(
-      student: Student(
-        studentId: teacherId, // Assuming this is just a placeholder
-        username: username,
-        password: password,
-        enrollmentNo: 0, // Placeholder
-        gender: gender,
-        email: email,
-        phoneNo: phoneNo,
-        address: address,
-        classId: 0, // Placeholder
-        marks: {}, // Placeholder
-      ),
-      teacherId: teacherId,
-      username: username,
-      password: password,
-      confirmPassword: confirmPassword,
-      name: name,
-      age: age,
-      gender: gender,
-      phoneNo: phoneNo,
-      address: address,
-      email: email,
-      classTeacher: classTeacher,
-    ));
   }
 
-  ///
-  ///
-  ///
-  ///
-  ///
 ////////////////////
   ///
   ///
@@ -246,12 +190,6 @@ class School {
   ///
   ///
 ////////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
-  ///
   void addClass({
     required int classId,
     required String className,
@@ -267,11 +205,7 @@ class School {
     print("-------------------------------------");
   }
 
-  ///
-  ///
-  ///
-  ///
-  ///
+ 
 ////////////////////
   ///
   ///
@@ -285,12 +219,7 @@ class School {
   ///
   ///
 ////////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
-  ///
+  
   void printStudents() {
     print("\nStudents:\n");
     print("| No. | Username  | Student ID |");
@@ -302,53 +231,19 @@ class School {
       String studentId = studentNames[i].studentId.toString().padRight(10);
 
       print("| $number | $username | $studentId |");
-    }}////////////
-    //
-    ///
-    ///
-    ///
-    ///
-    ///
-    ///
-    ///
-    ///
-   void addMark() {
-    // عرض قائمة الطلاب
-    print("Select a student by ID:");
-    for (var student in studentNames) {
-      print("ID: ${student.studentId}, Name: ${student.username}");
     }
+  } 
 
-    // الحصول على ID الطالب
-    print("Enter student ID:");
-    int studentId = int.parse(stdin.readLineSync()!);
+///
+///
+///
+///
+///
+///
+///
+///
+///
 
-    // البحث عن الطالب
-    Student? selectedStudent;
-    for (var student in studentNames) {
-      if (student.studentId == studentId) {
-        selectedStudent = student;
-        break;
-      }
-    }
-
-    if (selectedStudent != null) {
-      // الحصول على اسم المادة والعلامة
-      print("Enter subject:");
-      String subject = stdin.readLineSync()!;
-      print("Enter mark:");
-      int mark = int.parse(stdin.readLineSync()!);
-
-      // إضافة العلامة للطالب
-      selectedStudent.marks[subject] = mark;
-      print("Mark added successfully.");
-    } else {
-      print("Student not found.");
-    }
-  }
-
-//////////////////////////
-  ///
   void printStudentDetails() {
     for (var student in studentNames) {
       print('------------------------------------');
@@ -364,9 +259,15 @@ class School {
     }
   }
 
-  ///
-//////////////////////////
-  ///
+///
+///
+///
+///
+///
+///
+///
+///
+///
   void printStudentByIndex(int index) {
     if (index < 1 || index > studentNames.length) {
       print(
@@ -385,18 +286,16 @@ class School {
     print('Class ID          : ${student.classId}');
     print('------------------------------------');
   }
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
 
-  ///
-  ///
-  ///
-  ///
-  ///
-////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
   void printTeachers() {
     print("\nTeachers:\n");
     print("| No. | Username  | Teachers ID |");
@@ -412,7 +311,13 @@ class School {
   }
 
   ///
-//////////////////////////
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
   ///
 
   void printTeachersDetails() {
@@ -433,8 +338,16 @@ class School {
     }
   }
 
+
   ///
-//////////////////////////
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
   ///
 
   void printTeacherByIndex(int index) {
@@ -466,9 +379,6 @@ class School {
   ///
   ///
   ///
-////////////////////
-  ///
-  ///
   ///
   ///
   ///
@@ -489,14 +399,6 @@ class School {
 }
 
 void main() {
-  // إنشاء كائن من فئة School
   School school = School();
 
-  // استخدام طريقة addMark لإضافة علامات
-  school.addMark();
-
-  // طباعة العلامات للتحقق
-  for (var student in school.studentNames) {
-    print("Student ID: ${student.studentId}, Marks: ${student.marks}");
-  }
 }

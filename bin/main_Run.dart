@@ -1,6 +1,14 @@
 import 'dart:io';
-import 'main.dart';
-
+import 'main-teacher.dart';
+import 'main-principal.dart';
+import 'main-student.dart';
+///
+///
+///
+///
+///
+///
+///
 void main(List<String> args) {
   while (true) {   
     print("\n-------------------------------------");

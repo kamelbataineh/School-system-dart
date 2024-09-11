@@ -19,7 +19,6 @@ class Principal {
   ///
   ///
   ///
-  ////////////////////
   ///
   ///
   ///
@@ -48,8 +47,6 @@ class Principal {
   ///
   ///
   ///
-  ////////////////////
-  ///
   ///
   ///
   ///
@@ -62,8 +59,6 @@ class Principal {
   ///
   ///
   ///
-  ///
-  ////////////////////
   ///
   ///
   ///
@@ -206,9 +201,6 @@ class Principal {
   ///
   ///
   ///
-  ////////////////////
-  ///
-  ///
   ///
   ///
   ///
@@ -307,28 +299,15 @@ class Principal {
         }
       }
 
-      // Map<String, int> marks = {};
-      // String addMoreMarks;
-      // do {
-      //   stdout.write("Enter subject: ");
-      //   String subject = stdin.readLineSync()!;
-      //   stdout.write("Enter mark: ");
-      //   int mark;
-      //   while (true) {
-      //     try {
-      //       mark = int.parse(stdin.readLineSync()!);
-      //       break;
-      //     } catch (e) {
-      //       print("Invalid input. Please enter a valid mark.");
-      //     }
-      //   }
-      //   marks[subject] = mark;
-
-      //   stdout.write("Do you want to add more marks? (yes/no): ");
-      //   addMoreMarks = stdin.readLineSync()!.toLowerCase();
-      // }
-      // while (addMoreMarks == 'yes');
-
+      ///
+      ///
+      ///
+      ///
+      ///
+      ///
+      ///
+      ///
+      ///
       school.addStudent(
         studentId: studentId,
         username: username,
@@ -339,7 +318,6 @@ class Principal {
         phoneNo: phoneNo,
         address: address,
         classId: classId,
-        // marks: marks,
       );
       print("Student [$username] added successfully!");
       break;
@@ -350,13 +328,11 @@ class Principal {
   ///
   ///
   ///
-  ////////////////////
   ///
   ///
   ///
   ///
   ///
-
   void viewstudent() {
     school.printStudents();
   }
@@ -372,20 +348,6 @@ class Principal {
   ///
   ///
   ///
-  ///
-  ///
-////////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
-//////           modify teacher
-  ///
-  ///
-  ///
-  ///
-////////////////////
   ///
   ///
   ///
@@ -625,7 +587,7 @@ class Principal {
                   print("All information updated successfully.");
                   break;
 
-                case '12': // Exit
+                case '12':
                   print("Exiting update menu.");
                   return;
 
@@ -669,25 +631,10 @@ class Principal {
   ///
   ///
   ///
-////////////////////
   ///
   ///
   ///
   ///
-  ///
-//////           modify student
-  ///
-  ///
-  ///
-  ///
-////////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
-  ///
-
   void modifyStudent(int id) {
     while (true) {
       print("\n-------------------------------------");
@@ -836,7 +783,7 @@ class Principal {
                   print('------------------------------------');
                   break;
 
-                case '7': // Exit
+                case '7':
                   print("Exiting update menu.");
                   print('------------------------------------');
 
@@ -884,20 +831,6 @@ class Principal {
   ///
   ///
   ///
-////////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
-//////           add class
-  ///
-  ///
-  ///
-  ///
-////////////////////
-  ///
-  ///
   ///
   ///
   ///
@@ -942,20 +875,6 @@ class Principal {
   ///
   ///
   ///
-  ///
-  ///
-////////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
-//////           modify class
-  ///
-  ///
-  ///
-  ///
-////////////////////
   ///
   ///
   ///
@@ -1044,20 +963,6 @@ class Principal {
   ///
   ///
   ///
-////////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
-//////           Prepare Report Cards
-  ///
-  ///
-  ///
-  ///
-////////////////////
-  ///
-  ///
   ///
   ///
   ///
@@ -1070,7 +975,6 @@ class Principal {
       print("Name: ${student.username}");
       print("Class ID: ${student.classId}");
 
-      // Find the class details
       var studentClass = school.classes.firstWhere(
           (classObj) => classObj.classId == student.classId,
           orElse: () =>
@@ -1078,11 +982,10 @@ class Principal {
 
       print("Class Name: ${studentClass.className}");
 
-      // Find the teacher details
       var teacher = school.teacherNames.firstWhere(
           (teacher) => teacher.classTeacher == studentClass.className,
           orElse: () => Teacher(
-              student: student,
+              student: school.studentNames,
               teacherId: -1,
               username: "Unknown",
               password: "",
@@ -1110,27 +1013,11 @@ class Principal {
   ///
   ///
   ///
-////////////////////
   ///
   ///
   ///
   ///
-  ///
-//////           Prepare Report Cards index
-  ///
-  ///
-  ///
-  ///
-////////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
-  ///
-  void prepare_Report_Cards_index(
-    int id,
-  ) {
+  void prepare_Report_Cards_index(int id) {
     int index =
         school.studentNames.indexWhere((student) => student.studentId == id);
 
@@ -1150,7 +1037,7 @@ class Principal {
       var teacher = school.teacherNames.firstWhere(
           (teacher) => teacher.classTeacher == studentClass.className,
           orElse: () => Teacher(
-              student: student,
+              student: school.studentNames,
               teacherId: -1,
               username: "kamel",
               password: "",
@@ -1174,12 +1061,7 @@ class Principal {
       print("Student with ID $id not found in the school.");
     }
   }
-
-  ///
-  ///
-  ///
-  ///
-  ///
+}
 ////////////////////
   ///
   ///
@@ -1192,12 +1074,6 @@ class Principal {
   ///
   ///
 ////////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
-//
 // void main() {
 //   School school = School();
 
@@ -1262,4 +1138,4 @@ class Principal {
 //     }
 //   }
 //}
-}
+
