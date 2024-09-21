@@ -25,9 +25,9 @@ class Principal {
   ///
   ///
   bool login() {
-    stdout.write("Enter username: ");
+    stdout.write("Enter username (a) : ");
     String inputUsername = stdin.readLineSync()!;
-    stdout.write("Enter password: ");
+    stdout.write("Enter password (a) : ");
     String inputPassword = stdin.readLineSync()!;
     if (inputUsername == username && inputPassword == password) {
       print("\n--------------------\nLogin successful!\n--------------------");
@@ -171,12 +171,8 @@ class Principal {
         }
       }
 
-      bool usernameExists =
-          school.teacherNames.any((teacher) => teacher.username == username);
+      
 
-      if (usernameExists) {
-        print("Username already exists. Please try again.");
-      } else {
         school.addTeacher(
           teacherId: teacherId,
           confirmPassword: confirmPassword,
@@ -194,7 +190,7 @@ class Principal {
         break;
       }
     }
-  }
+  
 
   ///
   ///
@@ -937,7 +933,7 @@ class Principal {
               String? input = stdin.readLineSync();
               if (input != null && input.toLowerCase() == 'yes') {
                 school.classes
-                    .removeAt(index); // Remove the class from the list
+                    .removeAt(index); 
                 print("Class with ID $id has been removed.");
                 return;
               } else if (input != null && input.toLowerCase() == 'no') {

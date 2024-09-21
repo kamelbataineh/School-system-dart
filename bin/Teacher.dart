@@ -108,7 +108,7 @@ class Teacher {
         String response = stdin.readLineSync()!.toLowerCase();
 
         if (response != 'yes') {
-          return false;
+          return     false;
         }
       }
     }
@@ -116,9 +116,9 @@ class Teacher {
 
   bool login1() {
     print('\n------------------------------------');
-    stdout.write("Enter username: ");
+    stdout.write("Enter username (t) : ");
     String inputUsername = stdin.readLineSync()!;
-    stdout.write("Enter password: ");
+    stdout.write("Enter password (t) : ");
     String inputPassword = stdin.readLineSync()!;
     if (inputUsername == usernameTeacher && inputPassword == passwordTeacher) {
       print("Login successful!\n");
